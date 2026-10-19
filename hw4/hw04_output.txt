@@ -1,0 +1,44 @@
+Q1  data: ^SP500TR daily closes
+    full     9266 days  1990-01-02 to 2026-10-16
+    train    5469 days  1990-01-02 to 2011-09-09   mean price   1358.78
+    test     3857 days  2011-06-16 to 2026-10-16   mean price   6875.45
+            (60 of those are warm-up history; 3797 out-of-sample days, first return earned after 2011-09-09)
+
+Q3-Q5  training set
+    always hold                                total   +432.3%   annual +8.10%
+    always cash                                total     +0.0%   annual +0.00%
+    random 70% (seed 0)                        total   +361.4%   annual +7.38%
+    5-day reversal                             total   +206.7%   annual +5.36%
+    index buy-and-hold over the same days: total +432.3%, always-hold differs by +2.49e-14
+    index over the full period: annual +11.08%
+
+Q6  every variant tried (17), training-set annualised return
+    index (always hold)                        annual +8.10%
+    close > 10-day SMA                         annual +0.67%   invested 58.6%   max DD -55.4%
+    close > 20-day SMA                         annual +2.57%   invested 61.5%   max DD -46.0%
+    close > 30-day SMA                         annual +3.84%   invested 63.3%   max DD -41.4%
+    close > 40-day SMA                         annual +2.07%   invested 64.6%   max DD -50.1%
+    close > 50-day SMA                         annual +4.34%   invested 66.0%   max DD -36.8%
+    close > 60-day SMA                         annual +5.72%   invested 67.4%   max DD -32.3%
+    close > 0.98 x 60-day SMA (2% band)        annual +4.93%   invested 80.9%   max DD -51.6%
+    close > 1.02 x 60-day SMA (2% band)        annual +2.18%   invested 43.6%   max DD -33.9%
+    close > 20-span EMA                        annual +3.63%   invested 63.2%   max DD -50.5%
+    close > 40-span EMA                        annual +4.94%   invested 66.0%   max DD -38.4%
+    5-day SMA > 20-day SMA                     annual +2.66%   invested 61.3%   max DD -43.2%
+    10-day SMA > 30-day SMA                    annual +4.41%   invested 62.7%   max DD -31.8%
+    10-day SMA > 50-day SMA                    annual +5.26%   invested 66.2%   max DD -28.4%
+    20-day SMA > 60-day SMA                    annual +4.49%   invested 67.3%   max DD -41.8%
+    20-day SMA rising over 10 days             annual +4.47%   invested 63.1%   max DD -35.3%
+    40-day SMA rising over 20 days             annual +7.16%   invested 67.5%   max DD -37.8%
+    close > 50-day SMA AND 10 > 50-day SMA     annual +4.29%   invested 59.8%   max DD -28.9%
+    best by the pre-stated rule (highest training annualised return): 40-day SMA rising over 20 days
+
+Q7  final rule: hold the index tomorrow if today's 40-day simple moving average is above the 40-day average from 20 trading days ago; otherwise hold cash.
+    final rule, training                       total   +341.5%   annual +7.16%   max DD -37.8%   invested 67.5%
+    index, training                            total   +432.3%   annual +8.10%   max DD -55.3%
+
+Q8  TEST SET, run once
+    final rule   total  +250.7%   annual +8.68%   max DD -30.4%   invested  77.7%
+    index        total  +773.5%   annual +15.47%   max DD -33.8%   invested 100.0%
+
+Q9  today's call: HOLD the index  (last close used: 2026-10-16, 40-day SMA today 17261.51 vs 20 days ago 17123.77)
