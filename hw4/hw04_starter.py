@@ -1,7 +1,6 @@
 """Homework 4 starter — Algory QI Education, Fall 2026
 
-The backtester is the piece worth getting right. Everything after it in the
-semester assumes it works.
+
 """
 import sys
 
