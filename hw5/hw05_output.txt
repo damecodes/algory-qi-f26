@@ -1,0 +1,54 @@
+Q1  payoffs at expiry, strike 100, premium 6
+    kind          spot 80  spot 100  spot 120
+    long_call       -6.00     -6.00     14.00
+    long_put        14.00     -6.00     -6.00
+    short_call       6.00      6.00    -14.00
+    short_put      -14.00      6.00      6.00
+
+Q3  a live chain
+    available expiries: 2026-10-26, 2026-10-27, 2026-10-28, 2026-10-29, 2026-10-30, 2026-11-02, 2026-11-03, 2026-11-04, 2026-11-05, 2026-11-06, 2026-11-13, 2026-11-20, 2026-11-27, 2026-11-30, 2026-12-04, 2026-12-18, 2026-12-31, 2027-01-15, 2027-01-29, 2027-02-19, 2027-02-26, 2027-03-19, 2027-03-31, 2027-06-17, 2027-06-30, 2027-09-17, 2027-09-30, 2027-12-17, 2028-01-21, 2028-06-16, 2028-12-15, 2029-01-19
+    ticker        SPY
+    run date      2026-10-25
+    expiry        2026-11-27  (33 days out)
+    spot          759.97
+    calls         123
+    puts          114
+
+Q4  intrinsic and extrinsic value
+    dropped 4 calls with a zero bid and 10 with no trade in 7 days before 2026-10-25; 109 remain
+    ten strikes nearest spot (2026-11-27)
+      strike       mid  intrinsic  extrinsic
+       755.0     19.45       4.97      14.48
+       756.0     18.77       3.97      14.80
+       757.0     18.08       2.97      15.11
+       758.0     17.41       1.97      15.44
+       759.0     16.74       0.97      15.77
+       760.0     16.08       0.00      16.08
+       761.0     15.45       0.00      15.45
+       762.0     14.81       0.00      14.81
+       763.0     14.20       0.00      14.20
+       764.0     13.57       0.00      13.57
+    max |intrinsic + extrinsic - mid| = 0.00e+00
+
+Q5  where extrinsic value peaks
+    largest extrinsic  16.08 at strike 760.0
+    spot               759.97
+    deepest in-the-money strike 510.0: extrinsic 2.99
+
+Q6  a longer-dated expiry: 2027-06-17 (235 days out)
+    dropped 38 calls with a zero bid and 75 with no trade in 7 days before 2026-10-25; 104 remain
+    ten strikes nearest spot (2027-06-17)
+      strike       mid  intrinsic  extrinsic
+       735.0     69.43      24.97      44.46
+       740.0     65.78      19.97      45.81
+       745.0     62.20      14.97      47.23
+       750.0     58.77       9.97      48.80
+       755.0     55.06       4.97      50.10
+       760.0     51.75       0.00      51.75
+       765.0     48.80       0.00      48.80
+       770.0     45.55       0.00      45.55
+       775.0     42.41       0.00      42.41
+       780.0     39.41       0.00      39.41
+    largest extrinsic, 2026-11-27: 16.08 at strike 760.0
+    largest extrinsic, 2027-06-17: 51.75 at strike 760.0
+    long-dated curve is higher at 100% of the 47 strikes both chains quote
