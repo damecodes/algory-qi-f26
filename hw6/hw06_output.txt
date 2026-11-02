@@ -1,0 +1,77 @@
+run date 2026-11-01; SPY quotes from the 2026-10-30 close
+
+Q1  combinations on live SPY mids, expiry 2026-11-30, spot 755.72 (close of 2026-10-30)
+    profit per share at expiry; one contract is 100 shares
+    position           max profit    max loss   break-even(s)
+    covered call           +22.25     -748.75   748.75
+      long stock at 755.72 + short 771 call at 6.97
+    protective put      unlimited      -23.21   763.21
+      long stock at 755.72 + long 740 put at 7.49
+    long straddle       unlimited      -27.19   728.82, 783.18
+      long 756 call at 15.17 + long 756 put at 12.02
+    bull call spread        +6.80       -8.20   764.20
+      long 756 call at 15.17 + short 771 call at 6.97
+
+Q2  calendar spread: long 756 call 3 months out, short 756 call 1 week out
+    An expiry payoff diagram assumes every leg expires on the same day, so the
+    position is fully described by where the underlying ends up. In a calendar
+    spread the short one-week call expires while the long three-month call still
+    has about twelve weeks left, so on that day the long leg is worth its
+    Black-Scholes value, which depends on volatility, time and rates, not just on
+    the stock price. If the stock does nothing for a week, the short call loses
+    almost all of its time value and the long call loses only a little, so the
+    spread makes money: it is betting that the underlying stays near the strike
+    in the short term (it is short gamma and long theta), and that implied
+    volatility for the back month holds up or rises (it is long vega).
+    illustration with Black-Scholes at the 16.0% ATM implied vol: net debit 20.86
+    one week later, SPY unchanged, implied vol 11.0%: P/L -1.55 per share
+    one week later, SPY unchanged, implied vol 16.0%: P/L +5.58 per share
+    one week later, SPY unchanged, implied vol 21.0%: P/L +12.74 per share
+
+Q3  Black-Scholes, spot 100, strike 100, 1 year, 4% rate, 25% vol
+    call 11.84   put 7.92
+    put-call parity: C - P = 3.9211,  S - K*exp(-rT) = 3.9211
+
+Q4  implied volatility round trip (price from my pricer, solved back)
+    call strike 100  vol in 0.2500  price 11.8370  vol out 0.2500
+    put  strike 100  vol in 0.2500  price  7.9160  vol out 0.2500
+    call strike 120  vol in 0.1800  price  2.3561  vol out 0.1800
+    put  strike  80  vol in 0.6000  price 11.1876  vol out 0.6000
+
+Q5  implied volatility across the 2026-11-30 SPY call chain
+    quotes as of the 2026-10-30 close, 31 days to expiry, rate 3.973% (13-week T-bill, 2026-10-30)
+    225 calls, 205 with a non-zero bid, 171 also traded in the last 7 days, 171 with a solvable implied vol
+    implied vol at strike 756 (nearest spot 755.72): 15.97%
+    VIX close 2026-10-30: 19.42  (17.1 on 2026-09-14)
+    implied vol 10% below spot (strike 680): 29.24%   5% above spot (strike 794): 11.99%
+
+Q6  SPY volatility, realised vs implied
+    realised, last 30 daily returns to 2026-10-30, annualised: 11.32%
+    implied, at the money, 2026-11-30:                        15.97%
+    implied minus realised: +4.64%
+
+Q7  is implied above realised?
+    today: implied 15.97% vs realised 11.32% -> YES, implied is higher by 4.64%
+    since 2005-01-03: the VIX was above the next month's realised SPY vol on 83% of 5471 days, by +3.5 vol points on average
+
+    selling a 1-week ATM SPY straddle every week since 2005-01-03 (1098 weeks, priced at the VIX, no costs):
+    profitable weeks 71%   average week +0.482% of notional   median week +0.678%
+    average winning week +1.142%   average losing week -1.130%
+    five worst weeks (loss as % of notional, against the median week's gain):
+      2008-10-03  -14.81%   = -22 median weeks
+      2020-03-23  -10.55%   = -16 median weeks
+      2020-03-02  -7.59%   = -11 median weeks
+      2020-03-09  -6.52%   = -10 median weeks
+      2018-01-29  -5.76%   = -8 median weeks
+    cumulative +529.3% of notional; worst peak-to-trough -28.3%
+    autumn 2008: +3.4% over 17 weeks
+    Feb-Apr 2020: -19.1% over 11 weeks
+
+    the same trade priced 3 vol points below the VIX (closer to today's ATM gap):
+    profitable weeks 61%   average week +0.145%   cumulative +159.1%
+
+    on a margin account, priced at VIX - 3, compounding, selling L dollars of notional per dollar of equity:
+    L = 1: ends at x4.4 the starting equity, worst drawdown -28%
+    L = 3: ends at x38.0 the starting equity, worst drawdown -66%
+    L = 5: ends at x87.4 the starting equity, worst drawdown -87%
+    L = 8: wiped out in the week of 2008-10-03
