@@ -1,0 +1,10 @@
+{
+  "run_date": "2026-11-08",
+  "ticker": "SPY",
+  "years": 15,
+  "first": "2011-11-08",
+  "last": "2026-11-06",
+  "rows": 3771,
+  "source": "yfinance download, auto_adjust=True",
+  "tbill": "^IRX close, percent a year"
+}

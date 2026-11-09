@@ -1,0 +1,16 @@
+Robustness of the Q5/Q6 test result (data saved 2026-11-08, random forest, min_samples_leaf=50, 300 trees)
+    as reported (seed 0): test R² +0.0067, rule +17.69% a year vs buy and hold +19.32%
+
+A. same data, 20 forest seeds
+                   val R²    test R²       corr   invested     annual
+    min           -0.0015    +0.0022    +0.0680    +68.46%    +13.64%
+    median        +0.0017    +0.0044    +0.0777    +70.49%    +16.46%
+    max           +0.0051    +0.0069    +0.0892    +72.24%    +18.79%
+    buy and hold +19.32% a year; the rule beat it in 0 of 20 runs
+
+B. seed 0, 20 draws of 1e-6 noise on every close
+                   val R²    test R²       corr   invested     annual
+    min           +0.0034    +0.0065    +0.0871    +68.87%    +15.41%
+    median        +0.0040    +0.0067    +0.0880    +69.27%    +16.58%
+    max           +0.0044    +0.0071    +0.0899    +69.54%    +17.97%
+    buy and hold +19.32% a year; the rule beat it in 0 of 20 runs
