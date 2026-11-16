@@ -1,0 +1,13 @@
+{
+  "run_date": "2026-11-15",
+  "ticker": "SPY",
+  "years": 20,
+  "first": "2006-11-15",
+  "last": "2026-11-13",
+  "rows": 5030,
+  "last_close": 754.37,
+  "spot_used": 760.88,
+  "source": "yfinance download, auto_adjust=False (raw close)",
+  "tbill_pct": 4.122000217437744,
+  "tbill_date": "2026-11-13"
+}
