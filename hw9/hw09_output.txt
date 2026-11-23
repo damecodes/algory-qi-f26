@@ -1,0 +1,112 @@
+Data: SPY adjusted close, 2006-11-24 to 2026-11-20, 5029 closes, 5028 daily returns (snapshot)
+
+Q1  Volatility, scaled from daily
+    daily volatility        1.230%
+    annualised (x sqrt 252) 19.52%
+
+Q2  Volatility measured directly from calendar-year returns
+    19 full calendar years, 2007-2025:
+      2007    +5.15%
+      2008   -36.80%
+      2009   +26.35%
+      2010   +15.06%
+      2011    +1.90%
+      2012   +15.99%
+      2013   +32.31%
+      2014   +13.46%
+      2015    +1.23%
+      2016   +12.00%
+      2017   +21.71%
+      2018    -4.57%
+      2019   +31.22%
+      2020   +18.33%
+      2021   +28.73%
+      2022   -18.18%
+      2023   +26.18%
+      2024   +24.89%
+      2025   +17.72%
+    direct annual volatility   17.73%  (95% CI 13.4% to 26.2%)
+    scaled from daily (Q1)     19.52%
+    ratio direct / scaled      0.908
+    same with log returns:     direct 18.25%, scaled 19.54%, ratio 0.934
+    square-root rule by horizon (log returns, non-overlapping, annualised):
+      daily      19.54%
+      weekly     18.26%
+      monthly    15.52%
+      quarterly  16.74%
+      annual     18.25%
+    HW3 link: P(down) = 0.4485, P(down | down yesterday) = 0.4374
+    lag-1 autocorrelation of returns -0.1039, of squared returns +0.2538
+
+Q3  Rolling 60-day volatility (dated at the window's last day)
+    highest  4.786% daily = 76.0% annualised, on 2008-12-08
+    lowest   0.314% daily = 5.0% annualised, on 2017-11-15
+    largest separate spikes (peaks at least a year apart):
+      1. 2008-12-08  76.0%  2008 financial crisis
+      2. 2020-05-18  61.4%  2020 COVID crash
+      3. 2011-10-27  36.6%  2011 US downgrade / euro crisis
+      4. 2025-05-16  34.6%  2025 tariff shock
+      5. 2022-07-19  29.5%  2022 rate shock
+    clustering: when 60-day vol is in its top decile, it is still there 60 days later 38% of the time (10% if unrelated)
+
+Q4  Shape of daily returns
+    mean 0.0465%, standard deviation 1.230%
+    skewness          -0.011
+    excess kurtosis   +14.59
+    days beyond 4 sd    38  (21 down, 17 up; 4 sd = 4.92% a day)
+    worst day -10.94% on 2020-03-16 (-8.9 sd), best day 14.52% on 2008-10-13 (+11.8 sd)
+    4-sd days by year: 2008: 17, 2009: 3, 2011: 1, 2018: 1, 2020: 12, 2022: 1, 2025: 3
+
+Q5  4-sd days, normal vs actual
+    P(|z| > 4) under a normal = 6.334e-05, i.e. one day in 15,787 (63 years)
+    expected under normality  0.32 days over 5028 days
+    actual                    38 days
+    ratio actual / expected   119x
+    at 3 sd: expected 13.57, actual 84, ratio 6x
+    at 5 sd: expected 0.002883, actual 19, ratio 6,591x
+    at 6 sd: expected 9.921e-06, actual 12, ratio 1,209,540x
+
+Q6  Loss and the gain needed to get back to even
+    lose  10%  ->  need +11.1%
+    lose  25%  ->  need +33.3%
+    lose  50%  ->  need +100.0%
+    lose  75%  ->  need +300.0%
+    lose  90%  ->  need +900.0%
+    SPY max drawdown (total return) -55.2%, 2007-10-09 to 2009-03-09; needed +123%, back to the old high on 2012-08-16
+
+Q7  GBM, 10,000 one-year paths from $100,000 (seed 42)
+    estimated from daily log returns: drift mu = 11.72% a year, volatility = 19.54% a year (median growth mu - vol^2/2 = 9.81%)
+    mean final value     $112,633   (theory $112,436)
+    median final value   $110,402   (theory $110,310)
+    5th percentile       $80,084
+    95th percentile      $152,738
+    paths ending below the mean: 54.1%; below the start: 30.5%
+
+Q8  One-year risk at 95%, GBM (loss measured from the $100,000 start)
+    VaR   $19,916  = 19.92% of the portfolio
+    CVaR  $25,554  = 25.55% of the portfolio
+
+Q9  Same thing, resampling actual daily returns (10,000 paths, seed 42)
+                              GBM (normal)       bootstrap  block boot (21d)       history
+                                                (iid days)           (extra)(252d windows)
+    mean final                    $112,633        $112,205          $112,570      $112,189
+    median final                  $110,402        $110,272          $112,543      $114,986
+    5th percentile                 $80,084         $79,740           $82,148       $81,478
+    95th percentile               $152,738        $150,288          $143,266      $134,495
+    VaR 95% ($)                    $19,916         $20,260           $17,852       $18,522
+    VaR 95% (% of start)            19.92%          20.26%            17.85%        18.52%
+    CVaR 95% ($)                   $25,554         $26,466           $25,482       $33,243
+    CVaR 95% (% of start)           25.55%          26.47%            25.48%        33.24%
+    GBM              one-year log return: sd 19.53%, skew +0.03, excess kurtosis +0.05, worst path -61.06%
+    bootstrap        one-year log return: sd 19.36%, skew -0.05, excess kurtosis +0.06, worst path -54.26%
+    block bootstrap  one-year log return: sd 16.92%, skew -0.51, excess kurtosis +0.78, worst path -54.68%
+    history: 4777 overlapping 252-day windows (about 19 independent years); worst -47.35% from 2008-03-05
+    seed-to-seed spread over 20 seeds (sd of the % figure):
+      GBM       VaR 0.28%, CVaR 0.29%
+      bootstrap VaR 0.27%, CVaR 0.31%
+      mean over seeds: GBM VaR 19.93% / CVaR 26.01%; bootstrap VaR 20.05% / CVaR 26.26%
+      bootstrap minus GBM, VAR : +0.12 points (standard error 0.10)
+      bootstrap minus GBM, CVAR: +0.25 points (standard error 0.09)
+    daily excess kurtosis / 252 = +0.058: what iid summing leaves of the fat tails
+
+Checks: daily vol in 0.7%-1.3%: True | annual in 12%-20%: True | recovery(50%) = +100%: True | CVaR worse than VaR (all methods): True
