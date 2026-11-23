@@ -1,0 +1,9 @@
+{
+  "run_date": "2026-11-23",
+  "ticker": "SPY",
+  "years": 20,
+  "first": "2006-11-24",
+  "last": "2026-11-20",
+  "rows": 5029,
+  "source": "yfinance download, auto_adjust=False; analysis uses adj_close (total return)"
+}
